@@ -19,10 +19,7 @@ public class PC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((playerRb.transform.position.y !< 0.2 && playerRb.transform.position.y !> 0.2)){
-            playerRb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-        }
-        else {
+        if ((playerRb.transform.position.y > -0.2 && playerRb.transform.position.y < 0.2)){
             if (Input.GetKeyDown(KeyCode.UpArrow)){
                 if (playerRb.velocity.y == 0){
                     playerRb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
@@ -31,16 +28,20 @@ public class PC : MonoBehaviour
             } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
                 if (playerRb.velocity.y == 0){
                     playerRb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-                    playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                    playerRb.AddForce(Vector2.down * jumpForce, ForceMode2D.Impulse);
                 }
             }
             else {
                 playerRb.constraints = RigidbodyConstraints2D.FreezePositionY;   
             }
+            
+        }
+        else { 
+            //playerRb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
 
         };
         if (playerRb.transform.position.y < -0.2){
-            playerRb.AddForce(-Physics.gravity, ForceMode2D.Force);
+            playerRb.AddForce(-Physics.gravity/2, ForceMode2D.Force);
         }
 
     }
